@@ -1,6 +1,12 @@
 {{#each post as |post| }}
 <a href="/dashboard/edit/{{id}}">
-    <div>
-        
+    <div class="card m-3">
+        <div class="card-header d-flex align-items-center">
+            <h2>{{title}}</h2>
+
+        </div>
+
     </div>
 </a>
+{{/each}}
+<a href="dashboard/create"><button type="button" class="btn btn-secondary">Post</button></a>

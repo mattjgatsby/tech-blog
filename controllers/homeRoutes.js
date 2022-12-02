@@ -74,5 +74,24 @@ router.get("/dashboard", withAuth, async (req, res) => {
   });
 });
 
+router.get("/dashboard/create", withAuth, async (req, res) => {
+  res.render("create", {
+    loggedIn: req.session.loggedIn,
+  });
+});
+
+router.get("/dashboard/edit/:id", withAuth, async (req, res) => {
+  const postData = await Post.findOne({
+    where: {
+      id: req.params.id,
+    },
+    include: User,
+  });
+  const post = postData.get({ plain: true });
+  res.render("edit", {
+    post,
+    logged_in: req.session.logged_in,
+  });
+});
 
 module.exports = router;
