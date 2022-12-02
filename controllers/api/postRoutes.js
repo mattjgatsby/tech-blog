@@ -41,7 +41,7 @@ router.delete("/:id", async (req, res) => {
 router.put("/", async (req, res) => {
   try {
     const updatedPost = await Post.update({
-      content: req.body.content,
+      text: req.body.text,
       title: req.body.title,
     });
     res.status(200).json(updatedPost);
