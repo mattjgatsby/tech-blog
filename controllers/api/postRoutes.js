@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Post } = require("../../models");
+const { Post, User } = require("../../models");
 
 router.post("/", async (req, res) => {
   try {
@@ -11,6 +11,14 @@ router.post("/", async (req, res) => {
   } catch (err) {
     res.status(400).json(err);
   }
+});
+
+router.get("/", async (req, res) => {
+  res.status(200).json(
+    await Post.findAll({
+      include: User,
+    })
+  );
 });
 
 router.delete("/:id", async (req, res) => {
@@ -26,6 +34,19 @@ router.delete("/:id", async (req, res) => {
       return;
     }
   } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put("/", async (req, res) => {
+  try {
+    const updatedPost = await Post.update({
+      content: req.body.content,
+      title: req.body.title,
+    });
+    res.status(200).json(updatedPost);
+  } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
